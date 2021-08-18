@@ -12,6 +12,7 @@ class BarangController
     public function index()
     {
         $data = Barang::all();
+//        dd($data);
         return view('admin/barang/barang')->with(['data' => $data]);
     }
 

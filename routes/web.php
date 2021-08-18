@@ -40,6 +40,7 @@ Route::post('/admin/penjualan/edit', [PenjualanController::class, 'edit']);
 Route::get('/admin/hitung', [PenjualanController::class, 'hitung']);
 
 Route::get('/admin/laporan', [LaporanController::class, 'index']);
+Route::get('/admin/laporan/ajax', [LaporanController::class, 'getDataPenjualan']);
 
 Route::get('/admin/barangmasuk', [BarangMasukController::class, 'index']);
 Route::get('/admin/barangmasuk/minggu', [BarangMasukController::class, 'getMingguKe']);
