@@ -23,6 +23,10 @@ body {
   color: orange;
 }
 
+thead {
+  background-color: aquamarine;
+}
+
 .item-box {
   border: 1px solid #eee;
   border-radius: 20px;
