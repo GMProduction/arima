@@ -122,8 +122,8 @@ class BarangMasukController
             $tbPrediksi = new Prediksi();
             $tbPrediksi->minggu = $data[0]->minggu + 1;
             $tbPrediksi->barang_id = $idBarang;
-            $tbPrediksi->prediksi = (int)$prediksi;
-            $tbPrediksi->kesalahan = (int)$mape;
+            $tbPrediksi->prediksi = $prediksi;
+            $tbPrediksi->kesalahan = $mape;
             $tbPrediksi->masuk = 0;
             $tbPrediksi->penjualan_id = $data[0]->id;
             $tbPrediksi->save();

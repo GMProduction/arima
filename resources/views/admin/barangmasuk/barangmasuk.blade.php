@@ -20,42 +20,42 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5>Data Prediksi</h5>
                 <button type="button ms-auto" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#modalprediksi">Hitung Prediksi Minggu ini <i class='bx bxs-chevron-right'></i>
+                    data-bs-target="#modalprediksi">Hitung Prediksi Minggu ini <i class='bx bxs-chevron-right'></i>
                 </button>
             </div>
 
 
             <table class="table table-striped table-bordered ">
                 <thead>
-                <th>
-                    #
-                </th>
-                <th>
-                    Minggu Ke
-                </th>
-                <th>
-                    Nama Barang
-                </th>
-                <th>
-                    Hasil Prediksi
-                </th>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Minggu Ke
+                    </th>
+                    <th>
+                        Nama Barang
+                    </th>
+                    <th>
+                        Hasil Prediksi
+                    </th>
 
-                <th>
-                    Tingkat Kesalahan
-                </th>
+                    <th>
+                        MAPE
+                    </th>
 
 
-                <th>
-                    Barang di input
-                </th>
+                    <th>
+                        Barang Baru
+                    </th>
 
-                <th>
-                    Action
-                </th>
+                    <th>
+                        Action
+                    </th>
 
                 </thead>
 
-                @foreach($prediksi as $p)
+                @foreach ($prediksi as $p)
                     <tr>
                         <td>
                             {{ $loop->index + 1 }}
@@ -67,24 +67,27 @@
                             {{ $p->barang->nama }}
                         </td>
                         <td>
-                            {{ $p->prediksi }}
+                            {{ $p->prediksi }} 
                         </td>
                         <td>
-                            {{ $p->kesalahan }}
+                            {{ $p->kesalahan }} %
                         </td>
                         <td>
                             {{ $p->masuk }}
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-id="{{$p->id}}" data-nama="{{$p->barang->nama}}" data-prediksi="{{$p->prediksi}}" data-barang="{{$p->barang->id}}"
-                                    data-bs-target="#tambahbarang">Masukan
+                                data-id="{{ $p->id }}" data-nama="{{ $p->barang->nama }}"
+                                data-prediksi="{{ $p->prediksi }}" data-barang="{{ $p->barang->id }}"
+                                data-bs-target="#tambahbarang">Masukan
                             </button>
                             <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                                    data-qty="{{$p->masuk}}" data-id="{{$p->id}}" data-nama="{{$p->barang->nama}}" data-prediksi="{{$p->prediksi}}" data-barang="{{$p->barang->id}}"
-                                    data-bs-target="#editbarang">Ubah
+                                data-qty="{{ $p->masuk }}" data-id="{{ $p->id }}"
+                                data-nama="{{ $p->barang->nama }}" data-prediksi="{{ $p->prediksi }}"
+                                data-barang="{{ $p->barang->id }}" data-bs-target="#editbarang">Ubah
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="hapus('{{$p->id}}') ">hapus
+                            <button type="button" class="btn btn-danger btn-sm"
+                                onclick="hapus('{{ $p->id }}') ">hapus
                             </button>
                         </td>
                     </tr>
@@ -95,8 +98,7 @@
 
 
             <!-- Modal Prediksi-->
-            <div class="modal fade" id="modalprediksi" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
+            <div class="modal fade" id="modalprediksi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -110,10 +112,10 @@
                                 <div class="mb-3">
                                     <label for="barang" class="form-label">Barang</label>
                                     <div class="d-flex">
-                                        <select id="daftar_barang" class="form-select"
-                                                aria-label="Default select example" name="barang">
+                                        <select id="daftar_barang" class="form-select" aria-label="Default select example"
+                                            name="barang">
                                             <option selected>Pilih Barang</option>
-                                            @foreach($data as $v)
+                                            @foreach ($data as $v)
                                                 <option value="{{ $v->id }}">{{ $v->nama }}</option>
                                             @endforeach
                                         </select>
@@ -131,8 +133,7 @@
             </div>
 
             <!-- Modal Input-->
-            <div class="modal fade" id="tambahbarang" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
+            <div class="modal fade" id="tambahbarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -162,8 +163,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="editbarang" tabindex="-1" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
+            <div class="modal fade" id="editbarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -176,7 +176,8 @@
                                 <input type="hidden" name="id_predict" id="edit_id_predict">
                                 <div class="mb-3">
                                     <label for="edit_prediksi" class="form-label">Hasil Prediksi</label>
-                                    <input type="number" name="edit_prediksi" id="edit_prediksi" class="form-control" readonly>
+                                    <input type="number" name="edit_prediksi" id="edit_prediksi" class="form-control"
+                                        readonly>
                                 </div>
 
                                 <div class="mb-3">
@@ -200,8 +201,8 @@
 
 @section('script')
     <script>
-        $(document).ready(function () {
-            $('#daftar_barang').on('change', async function () {
+        $(document).ready(function() {
+            $('#daftar_barang').on('change', async function() {
                 let idBarang = this.value;
                 try {
                     let response = await $.get("/admin/barangmasuk/minggu?id=" + idBarang);
@@ -217,7 +218,7 @@
                 }
             });
 
-            $('#process-predict').on('click', async function (e) {
+            $('#process-predict').on('click', async function(e) {
                 e.preventDefault();
                 try {
                     let idBarang = $('#barang_predict_id').val();
@@ -236,7 +237,7 @@
                 }
             });
 
-            $('#tambahbarang').on('show.bs.modal', function (event) {
+            $('#tambahbarang').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 let id = button.data('id');
                 let nama = button.data('nama');
@@ -250,7 +251,7 @@
                 modal.find('#namaBarang').html(nama);
             });
 
-            $('#editbarang').on('show.bs.modal', function (event) {
+            $('#editbarang').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 let id = button.data('id');
                 let nama = button.data('nama');
@@ -265,13 +266,13 @@
                 modal.find('#edit_namaBarang').html(nama);
             });
 
-            $('#btn-predict').on('click', async function (e) {
+            $('#btn-predict').on('click', async function(e) {
                 e.preventDefault();
                 let idBrang = $('#id_barang').val();
                 let qty = $('#qty').val();
                 let idPredict = $('#id_predict').val();
-                try{
-                    let response = await $.post('/admin/barangmasuk/tambah',{
+                try {
+                    let response = await $.post('/admin/barangmasuk/tambah', {
                         _token: '{{ csrf_token() }}',
                         id_barang: idBrang,
                         id_predict: idPredict,
@@ -279,18 +280,18 @@
                     });
                     alert("Berhasil Menambahkan Stok Barang");
                     window.location.reload();
-                }catch(e){
+                } catch (e) {
                     alert("Gagal Menambahkan Stok Barang");
                     window.location.reload();
                 }
             })
-            $('#btn-edit-predict').on('click', async function (e) {
+            $('#btn-edit-predict').on('click', async function(e) {
                 e.preventDefault();
                 let idBrang = $('#edit_id_barang').val();
                 let qty = $('#edit_qty').val();
                 let idPredict = $('#edit_id_predict').val();
-                try{
-                    let response = await $.post('/admin/barangmasuk/edit',{
+                try {
+                    let response = await $.post('/admin/barangmasuk/edit', {
                         _token: '{{ csrf_token() }}',
                         id_barang: idBrang,
                         id_predict: idPredict,
@@ -298,7 +299,7 @@
                     });
                     alert("Berhasil Merubah Stok Barang");
                     window.location.reload();
-                }catch(e){
+                } catch (e) {
                     alert("Gagal Merubah Stok Barang");
                     window.location.reload();
                 }
@@ -307,24 +308,24 @@
 
         function hapus(id) {
             swal({
-                title: "Menghapus data?",
-                text: "Apa kamu yakin, ingin menghapus data ?!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
+                    title: "Menghapus data?",
+                    text: "Apa kamu yakin, ingin menghapus data ?!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
                 .then(async (willDelete) => {
                     if (willDelete) {
                         try {
                             let data = {
                                 '_token': '{{ csrf_token() }}'
                             };
-                            await $.post('/admin/barangmasuk/hapus/'+id, data);
+                            await $.post('/admin/barangmasuk/hapus/' + id, data);
                             swal(
                                 "Berhasil!", "Berhasi Menghapus data!", "success"
                             );
                             window.location.reload()
-                        }catch (e) {
+                        } catch (e) {
                             swal("Gagal!", "Gagal Menghapus data!", "error");
                         }
                     } else {
