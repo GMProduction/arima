@@ -63,16 +63,16 @@ class PenjualanController
     }
     public function hitung()
     {
-        $constant = 28;
+        $constant = 16;
         $data = Penjualan::orderBy('minggu', 'DESC')->take($constant)->get();
         $xtBeforeFirst = 0;
-        //jika data sudah lebih dari constant
-//        $firstWeek = $data[$constant-1]->minggu;
-//        $beforeFirst = Penjualan::where('minggu', '<', $firstWeek)->first();
-//
-//        if($beforeFirst) {
-//            $xtBeforeFirst = $beforeFirst->qty;
-//        }
+        // jika data sudah lebih dari constant
+       $firstWeek = $data[$constant-1]->minggu;
+       $beforeFirst = Penjualan::where('minggu', '<', $firstWeek)->first();
+
+       if($beforeFirst) {
+           $xtBeforeFirst = $beforeFirst->qty;
+       }
         $peramalan = [];
         $sumYt = 0;
         $sumXt = 0;
@@ -109,7 +109,8 @@ class PenjualanController
         $firstCoefficient = round($tmpFirstCoefficient, 5);
         $tmpSecondCoefficient = ($sumYt - ($firstCoefficient * $sumXt)) / $constant;
         $secondCoefficient = round($tmpSecondCoefficient, 5);
-        $prediksi = ($firstCoefficient * $peramalan[$constant - 1]['yt']) + $secondCoefficient + ($constant - 1) - ($firstCoefficient * $constant);
+        // $prediksi = ($firstCoefficient * $peramalan[$constant - 1]['yt']) + $secondCoefficient + ($constant - 1) - ($firstCoefficient * $constant);
+        $prediksi = ($firstCoefficient * $peramalan[$constant - 1]['yt']) + $secondCoefficient;
 
         $prediksiTiapMinggu = [];
         $sumRes = 0;
@@ -117,7 +118,10 @@ class PenjualanController
             $minggu = $data[$i]->minggu;
             $regresive = round($secondCoefficient, 0, PHP_ROUND_HALF_UP);
             $y = $data[$i]->qty;
-            $yAksen = $y > $regresive ? ($regresive + 1) : $regresive;
+            $tempyAksen = $y - $secondCoefficient;
+            $yAksen = $tempyAksen < 0 ? round(($y + $tempyAksen), 0, PHP_ROUND_HALF_UP) : round(($y - $tempyAksen), 0 , PHP_ROUND_HALF_UP);
+            // $yAksen = round(($y - $tempyAksen), 0, PHP_ROUND_HALF_UP);
+            // $yAksen = $y > $regresive ? ($regresive + 1) : $regresive;
 //            $yAksen = $y > $regresive ? ($regresive) : $regresive;
             $error = $y - $secondCoefficient;
             $errorAbsolute = abs(round($error, 5));
@@ -127,6 +131,7 @@ class PenjualanController
                 'periode' => $minggu,
                 'y' => $y,
                 'y_aksen' => $yAksen,
+                'tey_aksen' => $tempyAksen,
                 'error' => round($error, 5),
                 'error_absolute' => $errorAbsolute,
                 'result' => round($res, 7)
@@ -140,7 +145,7 @@ class PenjualanController
             'summary' => $summary,
             'himpunan' => $firstCoefficient,
             'himpunanKe2' => $secondCoefficient,
-            'prediksi' => (int)$prediksi,
+            'prediksi' => round($prediksi, 0, PHP_ROUND_HALF_UP),
             'mape_data' => $prediksiTiapMinggu,
             'sum_mape_res' => $sumRes,
             'mape' => round($mape, 3)

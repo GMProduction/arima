@@ -46,7 +46,7 @@
 
 
                     <th>
-                        Barang Baru
+                        Stock Barang Masuk
                     </th>
 
                     <th>

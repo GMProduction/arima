@@ -34,7 +34,7 @@ class BarangMasukController
     {
         try {
             $idBarang = $request->request->get("id");
-            $constant = 28;
+            $constant = 16;
             $data = Penjualan::where('barang_id', '=', $idBarang)->orderBy('minggu', 'DESC')->take($constant)->get();
             $xtBeforeFirst = 0;
             if (count($data) < $constant) {
