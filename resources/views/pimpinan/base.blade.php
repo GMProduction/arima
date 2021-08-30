@@ -36,38 +36,38 @@
             </a>
 
 
-            @if(auth()->user()->role == 'admin')
-                <a href="/admin">
-                    <li href="#" class="nav-link t-white">
-                        <i class="bx bxs-dashboard"></i>
-                        <span class="mx-2">Dashboard</span>
-                    </li>
-                </a>
+            
+            <a href="/admin">
+                <li href="#" class="nav-link t-white">
+                    <i class="bx bxs-dashboard"></i>
+                    <span class="mx-2">Dashboard</span>
+                </li>
+            </a>
 
-                <a href="/admin/barang">
-                    <li href="#" class="nav-link t-white">
-                        <i class="bx bxs-cube"></i>
-                        <span class="mx-2">Master barang</span>
-                    </li>
-                </a>
+            <a href="/admin/barang">
+                <li href="#" class="nav-link t-white">
+                    <i class="bx bxs-cube"></i>
+                    <span class="mx-2">Master barang</span>
+                </li>
+            </a>
 
 
-                <a href="/admin/barangmasuk">
-                    <li href="#" class="nav-link t-white">
-                        <i class='bx bx-archive-in'></i>
-                        <span class="mx-2">Data Barang Masuk</span>
-                    </li>
+            <a href="/admin/barangmasuk">
+                <li href="#" class="nav-link t-white">
+                    <i class='bx bx-archive-in'></i>
+                    <span class="mx-2">Data Barang Masuk</span>
+                </li>
 
-                </a>
+            </a>
 
-                <a href="/admin/penjualan">
-                    <li href="#" class="nav-link t-white">
-                        <i class='bx bx-archive-out'></i>
-                        <span class="mx-2">Data Penjualan</span>
-                    </li>
+            <a href="/admin/penjualan">
+                <li href="#" class="nav-link t-white">
+                    <i class='bx bx-archive-out' ></i>
+                    <span class="mx-2">Data Penjualan</span>
+                </li>
 
-                </a>
-            @endif
+            </a>
+
             <a href="/admin/laporan">
                 <li href="#" class="nav-link t-white">
                     <i class='bx bxs-report'></i>

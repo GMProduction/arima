@@ -50,6 +50,13 @@ Route::post('/admin/barangmasuk/edit', [BarangMasukController::class, 'editStok'
 Route::post('/admin/barangmasuk/hapus/{id}', [BarangMasukController::class, 'hapusStok']);
 
 
+Route::get('/pimpinan', function () {
+    return view('pimpinan/dashboard');
+});
+
+Route::get('/pimpinan/laporan', [LaporanController::class, 'index']);
+Route::get('/pimpinan/laporan/ajax', [LaporanController::class, 'getDataPenjualan']);
+
 Route::get('/admin/admin', function () {
     return view('admin/admin/admin');
 });
