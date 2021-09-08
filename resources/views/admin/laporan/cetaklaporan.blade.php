@@ -26,24 +26,87 @@
             height: 0;
         }
 
-        table { border: 1px solid #ccc; border-collapse: collapse; margin: 0; padding: 0; width: 100%; table-layout: fixed;}
-      table caption { font-size: 1.5em; margin: .5em 0 .75em;}
-      table tr { border: 1px solid #ddd; padding: .35em;}
-      table th,
-      table td { padding: .625em; text-align: center;}
-      table th, table td { font-size: .6em; letter-spacing: .1em; text-transform: uppercase;}
-      @media screen and (max-width: 600px) {
-        table { border: 0; }
-        table caption { font-size: 1.3em; }
-        table thead { border: none; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px;}
-        table tr { border-bottom: 3px solid #ddd; display: block; margin-bottom: .625em; }
-        table td { border-bottom: 1px solid #ddd; display: block; font-size: .6em; text-align: right;}
-        table td::before { content: attr(data-label); float: left; font-weight: bold; text-transform: uppercase; }
-        table td:last-child { border-bottom: 0; }
-      }
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table caption {
+            font-size: 1.5em;
+            margin: .5em 0 .75em;
+        }
+
+        table tr {
+            border: 1px solid #ddd;
+            padding: .35em;
+        }
+
+        table th,
+        table td {
+            padding: .625em;
+            text-align: center;
+        }
+
+        table th,
+        table td {
+            font-size: .6em;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                border: 0;
+            }
+
+            table caption {
+                font-size: 1.3em;
+            }
+
+            table thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid #ddd;
+                display: block;
+                margin-bottom: .625em;
+            }
+
+            table td {
+                border-bottom: 1px solid #ddd;
+                display: block;
+                font-size: .6em;
+                text-align: right;
+            }
+
+            table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            table td:last-child {
+                border-bottom: 0;
+            }
+        }
+
         .text-center {
             text-align: center !important;
         }
+
     </style>
 
     <br>
@@ -54,68 +117,66 @@
         <div>
             <h4 style=" text-align: right;margin-bottom:0;margin-top:0">Laporan UD.SANUSI</h4>
             {{-- <h5 style=" text-align: right;margin-bottom:0;margin-top:0">Periode</h5> --}}
-          
+
         </div>
 
         <br>
 
         <table style="margin-top: 50px">
             <thead>
-              <tr>
-                  <th style="width: 10px" class="text-center">#</th>
-                  <th class="text-center">Nama Barang</th>
-                  <th class="text-center">Minggu (Penjualan)</th>
-                  <th style="width: 400px" class="text-center">Minggu ke (Prediksi)</th>
-                  <th class="text-center">Prediksi</th>
-                  <th class="text-center">Kesalahan</th>
-                  <th class="text-center">Barang Masuk</th>
-                  <th class="text-center">Penjualan</th>
-              </tr>
+                <tr>
+                    <th style="width: 10px" class="text-center">#</th>
+                    <th class="text-center">Nama Barang</th>
+                    <th class="text-center">Minggu (Penjualan)</th>
+                    <th style="width: 400px" class="text-center">Minggu ke (Prediksi)</th>
+                    <th class="text-center">Prediksi</th>
+                    <th class="text-center">Kesalahan</th>
+                    <th class="text-center">Barang Masuk</th>
+                    <th class="text-center">Penjualan</th>
+                </tr>
             </thead>
             <tbody>
-              @forelse($data as $key => $d)
-                  <tr>
-                      <td>{{$key+1}}</td>
-                      <td>{{$d->barang_id}}</td>
-                      {{-- <td>{{date('d F Y', strtotime($d->tanggal_pesanan))}}</td> --}}
-                      <td>
-                          {{-- <table style="border: none !important">
-                              @foreach($d->getKeranjang as $num => $k)
-                                  <tr style="border: none">
-                                      <td rowspan="2" class="py-0">{{$num + 1}}</td>
-                                      <td colspan="5" class="py-0 border-bottom-0">{{$k->getProduk->nama_produk}}</td>
-                                  </tr>
-                                  <tr style="border-left: none; border-right: none">
-                                      <td class="py-0">{{number_format($k->getProduk->harga,0)}}</td>
-                                      <td class="py-0">x</td>
-                                      <td class="py-0">{{$k->qty}}</td>
-                                      <td class="py-0">=</td>
-                                      <td class="py-0">{{number_format($k->total_harga,0)}}</td>
-                                  </tr>
-                              @endforeach
-                          </table> --}}
-                      </td>
-                      {{-- <td>Rp. {{number_format($d->biaya_pengiriman, 0)}}</td>
-                      <td>Rp. {{number_format($d->total_harga, 0)}}</td> --}}
-                  </tr>
-              @empty
-                  <tr>
-                      <td class="text-center" colspan="6">Tidak ada Data</td>
-                  </tr>
-              @endforelse
-           
+                @forelse($data as $key => $d)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $d->barang->nama }}</td>
+                        <td>
+                            {{ $d->minggu }}
+                        </td>
+                        <td>
+                            {{ $d->prediksi == null ? '-' : $d->prediksi->minggu }}
+                        </td>
+                        <td>
+                            {{ $d->prediksi == null ? '-' : $d->prediksi->prediksi }}
+                        </td>
+                        <td>
+                            {{ $d->prediksi == null ? '-' : $d->prediksi->kesalahan }}
+                        </td>
+                        <td>
+                            {{ $d->prediksi == null ? '-' : $d->prediksi->masuk }}
+                        </td>
+                        <td>
+                            {{ $d->qty }}
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td class="text-center" colspan="6">Tidak ada Data</td>
+                    </tr>
+                @endforelse
+
             </tbody>
-          </table>
+        </table>
 
 
-          <div style="right:10px;width: 300px;display: inline-block;margin-top:70px">
+        <div style="right:10px;width: 300px;display: inline-block;margin-top:70px">
             <p class="text-center mb-5">Pimpinan</p>
             <p class="text-center">( ........................... )</p>
         </div>
 
         <div style="left:10px;width: 300px; margin-left : 100px;display: inline-block">
             <p class="text-center mb-5">Admin</p>
-            {{-- <p class="text-center">( {{auth()->user()->username}} )</p> --}}
+            <p class="text-center">( .............. )</p>
         </div>
 
 

@@ -73,4 +73,46 @@ class LaporanController
         return view('admin/laporan/cetaklaporan')->with(["data"=>$data]);
         // return view('admin/laporan/cetaklaporan');
     }
+
+
+
+    public function cetakLaporan1()
+    {
+//        return $this->dataLaporan();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->dataLaporan1())->setPaper('f4', 'landscape');
+
+        return $pdf->stream();
+    }
+
+    public function dataLaporan1()
+    {
+        // $idBarang = $id;
+        
+        $data = Penjualan::get();
+
+        // $data = Penjualan::with(['prediksi', 'barang'])->when($idBarang, function ($query) use ($idBarang){
+        //     if($idBarang !== ""){
+        //         return $query->where('barang_id', '=', $idBarang);
+        //     }
+        // })->get();
+
+        // dd($data);
+
+        // $pesanan = $this->getPesanan($start, $end);
+        // $total   = Pesanan::where('status_pesanan', '=', 4);
+        // if ($start) {
+        //     $total = $total->whereBetween('tanggal_pesanan', [date('Y-m-d 00:00:00', strtotime($start)), date('Y-m-d 23:59:59', strtotime($end))]);
+        // }
+        // $total = $total->sum('total_harga');
+        // $data = [
+        //     'start' => \request('start'),
+        //     'end' => \request('end'),
+        //     'data' => $pesanan,
+        //     'total' => $total
+        // ];
+
+        return view('admin/laporan/cetaklaporan')->with(["data"=>$data]);
+        // return view('admin/laporan/cetaklaporan');
+    }
 }
