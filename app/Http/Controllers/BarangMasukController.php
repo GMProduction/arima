@@ -34,9 +34,8 @@ class BarangMasukController
     {
         try {
             $idBarang = $request->request->get("id");
-            $constant = 16;
+            $constant = 28;
             $data = Penjualan::where('barang_id', '=', $idBarang)->orderBy('minggu', 'DESC')->take($constant)->get();
-            $xtBeforeFirst = 0;
             if (count($data) < $constant) {
                 return response()->json(['msg' => 'Data Tidak Bisa Di Perdiksi Karena Belum Memenuhi Nilai Konstan ' . $constant, 'code' => 202], 200);
             }
@@ -49,13 +48,6 @@ class BarangMasukController
                     return response()->json(['msg' => 'Data Minggu Ke ' . $data[0]->minggu . ' Sudah Di Prediksi', 'code' => 202], 200);
                 }
             }
-
-            //jika data sudah lebih dari constant
-            $firstWeek = $data[$constant - 1]->minggu;
-            $beforeFirst = Penjualan::where('minggu', '<', $firstWeek)->first();
-            if ($beforeFirst) {
-                $xtBeforeFirst = $beforeFirst->qty;
-            }
             $peramalan = [];
             $sumYt = 0;
             $sumXt = 0;
@@ -64,7 +56,7 @@ class BarangMasukController
             for ($i = 0; $i < $constant; $i++) {
                 $minggu = $data[$i]->minggu;
                 $yt = $data[$i]->qty;
-                $xt = $i === ($constant - 1) ? $xtBeforeFirst : $data[$i + 1]->qty;
+                $xt = $i === ($constant - 1) ? 0 : $data[$i + 1]->qty;
                 $xy = $yt * $xt;
                 $x2 = pow($xt, 2);
                 $sumYt = $sumYt + $yt;
@@ -88,21 +80,20 @@ class BarangMasukController
                 'x2' => $sumX2
             ];
 
-            $tmpFirstCoefficient = (($constant * $sumXY) - ($sumXt * $sumYt)) / (($constant * $sumX2) - (pow($sumXt, 2)));
-            $firstCoefficient = round($tmpFirstCoefficient, 5);
-            $tmpSecondCoefficient = ($sumYt - ($firstCoefficient * $sumXt)) / $constant;
-            $secondCoefficient = round($tmpSecondCoefficient, 5);
-            $prediksi = ($firstCoefficient * $peramalan[$constant - 1]['yt']) + $secondCoefficient + ($constant - 1) - ($firstCoefficient * $constant);
+            $tempHimpunan = (($constant * $sumXY) - ($sumXt * $sumYt)) / (($constant * $sumX2) - (pow($sumXt, 2)));
+            $himpunan = round($tempHimpunan, 5);
+            $tempHimpunanKeDua = ($sumYt - ($himpunan * $sumXt)) / $constant;
+            $himpunanKeDua = round($tempHimpunanKeDua, 5);
+            $prediksi = ($himpunan * $peramalan[$constant - 1]['yt']) + $himpunanKeDua + ($constant - 1) - ($himpunan * $constant);
 
             $prediksiTiapMinggu = [];
             $sumRes = 0;
             for ($i = 0; $i < $constant; $i++) {
                 $minggu = $data[$i]->minggu;
-                $regresive = round($secondCoefficient, 0, PHP_ROUND_HALF_UP);
+                $regresive = round($himpunanKeDua, 0, PHP_ROUND_HALF_UP);
                 $y = $data[$i]->qty;
                 $yAksen = $y > $regresive ? ($regresive + 1) : $regresive;
-//                $yAksen = $y > $regresive ? ($regresive) : $regresive;
-                $error = $y - $secondCoefficient;
+                $error = $y - $himpunanKeDua;
                 $errorAbsolute = abs(round($error, 3));
                 $res = $errorAbsolute / $y;
                 $sumRes = $sumRes + $res;

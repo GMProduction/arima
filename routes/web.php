@@ -48,7 +48,7 @@ Route::post('/admin/barangmasuk/prediksi', [BarangMasukController::class, 'predi
 Route::post('/admin/barangmasuk/tambah', [BarangMasukController::class, 'tambahStok']);
 Route::post('/admin/barangmasuk/edit', [BarangMasukController::class, 'editStok']);
 Route::post('/admin/barangmasuk/hapus/{id}', [BarangMasukController::class, 'hapusStok']);
-
+Route::get('/cetaklaporan/{id}',[LaporanController::class, 'cetakLaporan']);
 
 Route::get('/pimpinan', function () {
     return view('pimpinan/dashboard');

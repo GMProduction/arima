@@ -20,7 +20,7 @@
 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h5>Laporan</h5>
-                <div style="width: 50%">
+                <div class="d-flex">
                     <select id="daftar_barang" class="form-select"
                             aria-label="Default select example" name="barang">
                         <option value="" selected>Pilih Barang</option>
@@ -28,6 +28,8 @@
                             <option value="{{ $v->id }}">{{ $v->nama }}</option>
                         @endforeach
                     </select>
+                    <a class="btn btn-primary btn-sm ms-2" href="/cetaklaporan/1">Cetak
+                </a>
                 </div>
             </div>
 
