@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Sep 2021 pada 07.28
+-- Waktu pembuatan: 08 Sep 2021 pada 08.17
 -- Versi server: 10.4.13-MariaDB
 -- Versi PHP: 7.4.8
 
@@ -170,6 +170,13 @@ CREATE TABLE `prediksi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `prediksi`
+--
+
+INSERT INTO `prediksi` (`id`, `penjualan_id`, `minggu`, `barang_id`, `prediksi`, `kesalahan`, `masuk`, `created_at`, `updated_at`) VALUES
+(9, 35, 29, 1, 99.92438, 36.23636933031, 0, '2021-09-02 22:29:52', '2021-09-02 22:29:52');
+
 -- --------------------------------------------------------
 
 --
@@ -276,7 +283,7 @@ ALTER TABLE `penjualan`
 -- AUTO_INCREMENT untuk tabel `prediksi`
 --
 ALTER TABLE `prediksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
