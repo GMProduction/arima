@@ -36,7 +36,7 @@
             </a>
 
 
-            @if(auth()->user()->role == 'admin')
+            @if (auth()->user()->role == 'admin')
                 <a href="/admin">
                     <li href="#" class="nav-link t-white">
                         <i class="bx bxs-dashboard"></i>
@@ -50,8 +50,9 @@
                         <span class="mx-2">Master barang</span>
                     </li>
                 </a>
+            @endif
 
-
+            @if (auth()->user()->role == 'pimpinan')
                 <a href="/admin/barangmasuk">
                     <li href="#" class="nav-link t-white">
                         <i class='bx bx-archive-in'></i>
@@ -59,7 +60,9 @@
                     </li>
 
                 </a>
-
+            @endif
+            
+            @if (auth()->user()->role == 'admin')
                 <a href="/admin/penjualan">
                     <li href="#" class="nav-link t-white">
                         <i class='bx bx-archive-out'></i>

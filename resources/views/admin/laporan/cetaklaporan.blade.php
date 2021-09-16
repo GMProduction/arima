@@ -112,7 +112,7 @@
     <br>
 
     <div>
-        <img src="{{ public_path('static-image/logo.png') }}" style="width: 120px; float: left;" />
+        <img src="{{ public_path('static-image/logo.jpeg') }}" style="width: 120px; float: left;" />
 
         <div>
             <h4 style=" text-align: right;margin-bottom:0;margin-top:0">Laporan UD.SANUSI</h4>
